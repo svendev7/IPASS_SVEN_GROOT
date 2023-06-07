@@ -6,20 +6,27 @@ import java.util.List;
 public class User {
     private String username;
     private String password;
-    private String role;
     private static List<User> allUsers = new ArrayList<>();
-
-    public User(String username, String password, String role) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.role = role;
         allUsers.add(this);
     }
-    public String getRole() {
-        return role;
-    }
+
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     public static List<User> getAllUsers() {
         return allUsers;
@@ -27,5 +34,13 @@ public class User {
     public boolean checkPassword(String passwordToCheck) {
         return passwordToCheck.equals(password);
     }
-
 }
+
+
+
+
+
+
+
+
+

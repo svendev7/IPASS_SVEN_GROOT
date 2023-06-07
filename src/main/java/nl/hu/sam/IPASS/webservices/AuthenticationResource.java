@@ -30,7 +30,7 @@ public class AuthenticationResource {
 
 
         for (User user : User.getAllUsers()) {
-            if ( user.getUsername().equals(req.username)
+            if (user.getUsername().equals(req.username)
                     && user.checkPassword(req.password) ) {
                 Calendar expires = Calendar.getInstance();
                 expires.add(Calendar.HOUR, 1);
@@ -38,7 +38,6 @@ public class AuthenticationResource {
                 String token = Jwts.builder()
                         .setSubject(req.username)
                         .setExpiration(expires.getTime())
-                        .claim("role", user.getRole())
                         .signWith(SignatureAlgorithm.HS512, key)
                         .compact();
 
