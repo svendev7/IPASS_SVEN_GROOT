@@ -35,12 +35,3 @@ public class User {
         return passwordToCheck.equals(password);
     }
 }
-
-
-
-
-
-
-
-
-

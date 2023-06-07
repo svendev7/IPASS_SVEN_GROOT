@@ -7,7 +7,7 @@ import javax.ws.rs.ApplicationPath;
 @ApplicationPath("sam")
 public class JerseyConfig extends ResourceConfig {
     public JerseyConfig() {
-        packages("nl.hu.bep.shopping.webservices");
+        packages("nl.hu.sam.model.webservices");
     }
 }
 

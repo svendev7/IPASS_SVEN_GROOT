@@ -5,7 +5,17 @@
     min-height: 100vh;
     align-items: center;
     flex-direction: column;
+    background-size: cover;
+    background-image: url('https://d36pj450k6628s.cloudfront.net/w_1250,h_703,q_100/s3-kassa-bnnvara/c2f8e0fd-0e4e-4c17-a341-4c90e3940145.jpg');
 }
+
+.home-text {
+    width: 928px;
+    height: 42px;
+    text-align: center;
+    letter-spacing: 7px;
+}
+
 .home-container1 {
     width: 100%;
     height: 202px;
@@ -13,84 +23,74 @@
     position: relative;
     align-items: flex-start;
 }
-.home-image {
-    width: 215px;
-    height: 100%;
-    object-fit: cover;
-}
-.home-text {
-    width: 928px;
-    height: 42px;
-    text-align: center;
-    letter-spacing: 7px;
-}
+
 .home-link {
-    top: 93px;
-    right: 4px;
+    top: 0;
+    right: 2px;
     position: absolute;
     text-decoration: none;
 }
+
 .home-link1 {
     display: contents;
 }
-.home-image1 {
-    top: 0px;
-    right: 4px;
-    width: 80px;
-    height: 91px;
-    position: absolute;
-    object-fit: cover;
-    text-decoration: none;
-}
-.home-textarea {
-    left: 11px;
-    width: 466px;
-    bottom: 113px;
-    height: 399px;
+
+
+.home-ul1 {
+    top: 472px;
+    left: -13px;
     position: absolute;
 }
-.home-textarea1 {
-    left: 9px;
-    width: 283px;
-    bottom: 55px;
-    height: 49px;
-    position: absolute;
+
+.home-li3 {
+    position: relative;
 }
-.home-text1 {
+
+.home-li4 {
+    position: relative;
+}
+
+.home-text07 {
     top: 449px;
     left: 4px;
     position: absolute;
 }
-.home-text2 {
+
+.home-text08 {
     top: 188px;
     left: 227px;
     position: absolute;
 }
-.home-text3 {
-    top: 188px;
-    left: 702px;
+
+.home-text09 {
+    top: 189px;
+    left: 674px;
     position: absolute;
 }
-.home-text4 {
+
+.home-text10 {
     top: 178px;
     left: 1240px;
     position: absolute;
 }
-.home-image2 {
+
+.home-image1 {
     top: 250px;
     left: 215px;
     width: 200px;
     position: absolute;
     object-fit: cover;
 }
-.home-image3 {
+
+.home-image2 {
     top: 250px;
     left: 719px;
     width: 200px;
     position: absolute;
     object-fit: cover;
 }
-.home-image4 {
+
+.home-image3 {
     top: 250px;
     left: 1221px;
     width: 200px;
