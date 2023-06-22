@@ -1,18 +1,23 @@
-<div>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Web Page</title>
   <link href="./home.css" rel="stylesheet" />
+  <style>
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+<div>
   <div class="home-container">
     <h1 class="home-text">Albert Heijn Medewerker App</h1>
     <div class="home-container1">
-      <a href="https://localhost:8080/sam/login.html" target="_blank" rel="noreferrer noopener" class="home-link">Uitloggen</a>
-      <a href="https://localhost:8080/sam/account.html" target="_blank" rel="noreferrer noopener" class="home-link1">
-      </a>
+      <a target="_blank" rel="noreferrer noopener" class="home-link">Uitloggen</a>
+      <a target="_blank" rel="noreferrer noopener" class="home-link1">Beschikbaarheid invullen</a>
+      <a target="_blank" rel="noreferrer noopener" class="home-link2">Rooster invullen</a>
     </div>
-    <ul class="home-ul list">
-    </ul>
-    <ul class="home-ul1 list">
-      <li class="home-li3 list-item"></li>
-      <li class="home-li4 list-item"></li>
-    </ul>
     <h1 class="home-text07">Belangrijk nieuws van vandaag:</h1>
     <h1 class="home-text08">Rooster</h1>
     <h1 class="home-text09">Vervanging regelen</h1>
@@ -24,85 +29,38 @@
 </div>
 <script>
   function logout() {
-    // Perform any necessary logout actions here
-    // For example, invalidate the session or clear authentication tokens
-    // Redirect the user to the login page
-    window.location.href = "https://localhost:8080/sam/login.html";
+    window.location.href = "index.html";
   }
-  
+
   const logoutButton = document.querySelector(".home-link");
   logoutButton.addEventListener("click", logout);
-</script>
-<script>
-  // Nieuws class definition
-  class Nieuws {
-    constructor(datum, inhoud, acties) {
-      this.datum = datum;
-      this.inhoud = inhoud;
-      this.acties = acties;
-    }
+
+  function account() {
+    window.location.href = "beschickbaarheid.html";
   }
 
-  // Create the Nieuws object
-  const n1 = new Nieuws(
-          "12-6-2023",
-          "tomaten zijn niet meer goed",
-          "haal alle tomaten uit de winkel asap"
-  );
-
-  // Function to generate nieuws items and append them to the HTML
-  function generateNieuwsItems() {
-    const nieuwsContainer = document.querySelector(".home-ul");
-
-    // Datum
-    const datumItem = document.createElement("li");
-    datumItem.classList.add("list-item");
-
-    const datumLabel = document.createElement("span");
-    datumLabel.textContent = "Datum:";
-    datumItem.appendChild(datumLabel);
-
-    const datumSpan = document.createElement("span");
-    datumSpan.textContent = n1.datum;
-    datumItem.appendChild(datumSpan);
-
-    nieuwsContainer.appendChild(datumItem);
-
-    // Inhoud
-    const inhoudItem = document.createElement("li");
-    inhoudItem.classList.add("list-item");
-
-    const inhoudLabel = document.createElement("span");
-    inhoudLabel.textContent = "";
-    inhoudItem.appendChild(inhoudLabel);
-
-    const inhoudSpan = document.createElement("span");
-    inhoudSpan.textContent = n1.inhoud;
-    inhoudItem.appendChild(inhoudSpan);
-
-    nieuwsContainer.appendChild(inhoudItem);
-
-    // Acties
-    const actiesItem = document.createElement("li");
-    actiesItem.classList.add("list-item");
-
-    const actiesLabel = document.createElement("span");
-    actiesLabel.textContent = "Acties:";
-    actiesItem.appendChild(actiesLabel);
-
-    const actiesSpan = document.createElement("span");
-    actiesSpan.textContent = n1.acties;
-    actiesItem.appendChild(actiesSpan);
-
-    nieuwsContainer.appendChild(actiesItem);
+  const accountButton = document.querySelector(".home-link1");
+  accountButton.addEventListener("click", account);
+  function rooster() {
+    window.location.href = "roosterinvul.html";
   }
 
-  // Call the function to generate nieuws items
-  generateNieuwsItems();
+  const roosterButton = document.querySelector(".home-link2");
+  roosterButton.addEventListener("click", rooster);
+  // Fetch the current user data from the server
 
-  // Position nieuwsContainer at x = 0 and y = 250
-  const nieuwsContainer = document.querySelector(".home-ul");
-  nieuwsContainer.style.position = "absolute";
-  nieuwsContainer.style.top = "489px";
-  nieuwsContainer.style.left = "-15px";
+
+  // Fetch the nieuws data from the server
+  fetch('http://localhost:8080/sam/nieuws/nieuws')
+          .then(response => response.json())
+          .then(data => {
+            // Update the nieuws data in the HTML
+            const nieuwsElement = document.querySelector(".home-text07");
+            nieuwsElement.innerHTML += "<br>" + data.datum + "<br>" + data.informatie + "<br>" + data.acties;
+          })
+          .catch(error => {
+            console.error("Error fetching nieuws data:", error);
+          });
 </script>
+</body>
+</html>

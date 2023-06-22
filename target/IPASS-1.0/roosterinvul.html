@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rooster invullen</title>
+    <style>
+        .day-input {
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+<h1>Rooster invullen</h1>
+<form id="rooster-form">
+    <label for="users-dropdown">Select a user:</label>
+    <select id="users-dropdown" name="users-dropdown"></select>
+
+    <h2>Time values for each day:</h2>
+    <div>
+        <label for="monday">Monday:</label>
+        <input type="text" class="day-input" id="monday" data-day="Monday">
+    </div>
+    <div>
+        <label for="tuesday">Tuesday:</label>
+        <input type="text" class="day-input" id="tuesday" data-day="Tuesday">
+    </div>
+    <div>
+        <label for="wednesday">Wednesday:</label>
+        <input type="text" class="day-input" id="wednesday" data-day="Wednesday">
+    </div>
+    <div>
+        <label for="thursday">Thursday:</label>
+        <input type="text" class="day-input" id="thursday" data-day="Thursday">
+    </div>
+    <div>
+        <label for="friday">Friday:</label>
+        <input type="text" class="day-input" id="friday" data-day="Friday">
+    </div>
+    <div>
+        <label for="saturday">Saturday:</label>
+        <input type="text" class="day-input" id="saturday" data-day="Saturday">
+    </div>
+    <div>
+        <label for="sunday">Sunday:</label>
+        <input type="text" class="day-input" id="sunday" data-day="Sunday">
+    </div>
+
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    function handleFormSubmit(event) {
+        event.preventDefault();
+
+        var selectedUser = document.getElementById('users-dropdown').value;
+        var roosterData = {};
+
+        var dayInputs = document.getElementsByClassName('day-input');
+        for (var i = 0; i < dayInputs.length; i++) {
+            var dayInput = dayInputs[i];
+            var day = dayInput.getAttribute('data-day');
+            var time = dayInput.value;
+            roosterData[day] = time;
+        }
+
+        var data = {
+            rooster: JSON.stringify(roosterData),
+            username: selectedUser
+        };
+
+        fetch('sam/rooster/roosterinvul', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(function(response) {
+                if (response.ok) {
+                    console.log('Rooster saved successfully!');
+                    alert('Rooster saved successfully!');
+                } else {
+                    console.error('Error saving rooster:', response.statusText);
+                    alert('Error saving rooster.');
+                }
+            })
+            .catch(function(error) {
+                console.error('Error saving rooster:', error);
+                alert('Error saving rooster.');
+            });
+    }
+
+    fetch('beschikbaarheden.json')
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            var dropdown = document.getElementById('users-dropdown');
+            data.forEach(function(user) {
+                var option = document.createElement('option');
+                option.value = user.username;
+                option.text = user.username;
+                dropdown.appendChild(option);
+            });
+        })
+        .catch(function(error) {
+            console.error('Error fetching users data:', error);
+        });
+
+    var roosterForm = document.getElementById('rooster-form');
+    roosterForm.addEventListener('submit', handleFormSubmit);
+</script>
+</body>
+</html>

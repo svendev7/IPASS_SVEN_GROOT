@@ -12,16 +12,9 @@ public class NieuwsResource {
 
     @GET
     @Path("/nieuws")
-    @Produces(MediaType.TEXT_HTML)
-    public String getNieuws() {
-        Nieuws nieuws = new Nieuws("2023-06-07", "Some information", "Some actions");
-
-        // Set attribute values in the HTML
-        String html = "<html>...</html>";
-        html = html.replace("<span id=\"acties\"></span>", "<span id=\"acties\">" + nieuws.getActies() + "</span>");
-        html = html.replace("<span id=\"informatie\"></span>", "<span id=\"informatie\">" + nieuws.getInformatie() + "</span>");
-        html = html.replace("<span id=\"nieuwsdatum\"></span>", "<span id=\"nieuwsdatum\">" + nieuws.getNieuwsDatum() + "</span>");
-
-        return html;
+    @Produces(MediaType.APPLICATION_JSON)
+    public Nieuws getNieuws() {
+        Nieuws n1 = new Nieuws("12-6-2023", "tomaten zijn niet meer goed", "haal alle tomaten uit de winkel asap");
+        return n1;
     }
 }

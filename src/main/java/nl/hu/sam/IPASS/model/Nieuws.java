@@ -9,7 +9,7 @@ public class Nieuws {
         this.informatie = informatie;
         this.acties = acties;
     }
-    public String getNieuwsDatum() {
+    public String getDatum() {
         return nieuwsDatum;
     }
     public void setNieuwsDatum(String nD) {

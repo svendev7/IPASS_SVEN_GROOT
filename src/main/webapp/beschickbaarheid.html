@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .availability-form {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .availability-form label {
+            font-weight: bold;
+        }
+
+        .availability-form input[type="text"] {
+            width: 150px;
+            padding: 5px;
+        }
+
+        .availability-form input[type="submit"] {
+            padding: 5px 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<header class="header">
+    <h1>Welcome, <span id="username"></span>!</h1>
+</header>
+
+<div class="container">
+    <h1>Set Availability</h1>
+    <form id="availabilityForm">
+        <div class="availability-form">
+            <label for="monday">Monday (<span id="mondayDate"></span>):</label>
+            <input type="text" name="monday" id="monday" placeholder="e.g., 12-15">
+        </div>
+        <div class="availability-form">
+            <label for="tuesday">Tuesday (<span id="tuesdayDate"></span>):</label>
+            <input type="text" name="tuesday" id="tuesday" placeholder="e.g., 17-24">
+        </div>
+        <div class="availability-form">
+            <label for="wednesday">Wednesday (<span id="wednesdayDate"></span>):</label>
+            <input type="text" name="wednesday" id="wednesday" placeholder="e.g., 09-18">
+        </div>
+        <div class="availability-form">
+            <label for="thursday">Thursday (<span id="thursdayDate"></span>):</label>
+            <input type="text" name="thursday" id="thursday" placeholder="e.g., 14-22">
+        </div>
+        <div class="availability-form">
+            <label for="friday">Friday (<span id="fridayDate"></span>):</label>
+            <input type="text" name="friday" id="friday" placeholder="e.g., 10-16">
+        </div>
+        <div class="availability-form">
+            <label for="saturday">Saturday (<span id="saturdayDate"></span>):</label>
+            <input type="text" name="saturday" id="saturday" placeholder="e.g., 09-17">
+        </div>
+        <div class="availability-form">
+            <label for="sunday">Sunday (<span id="sundayDate"></span>):</label>
+            <input type="text" name="sunday" id="sunday" placeholder="e.g., 13-20">
+        </div>
+        <input type="submit" value="Save Availability">
+    </form>
+</div>
+
+<script>
+    function getCurrentUser() {
+        return fetch('currentuser.json')
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    const username = data[0].username;
+                    return Promise.resolve({ username: username });
+                } else {
+                    return Promise.reject('User data not found.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    getCurrentUser()
+        .then(data => {
+            if (data && data.username) {
+                const username = data.username;
+                const usernameElement = document.getElementById('username');
+                usernameElement.textContent = username;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+    // Calculate the dates for each day of the current week
+    const today = new Date();
+    const currentDay = today.getDay();
+    const monday = new Date(today.getFullYear(), today.getMonth(), today.getDate() - currentDay + 1);
+    const dates = [];
+    for (let i = 0; i < 7; i++) {
+        const date = new Date(monday);
+        date.setDate(date.getDate() + i);
+        dates.push(date);
+    }
+
+    // Update the dates for each day in the HTML
+    document.getElementById('mondayDate').textContent = formatDate(dates[0]);
+    document.getElementById('tuesdayDate').textContent = formatDate(dates[1]);
+    document.getElementById('wednesdayDate').textContent = formatDate(dates[2]);
+    document.getElementById('thursdayDate').textContent = formatDate(dates[3]);
+    document.getElementById('fridayDate').textContent = formatDate(dates[4]);
+    document.getElementById('saturdayDate').textContent = formatDate(dates[5]);
+    document.getElementById('sundayDate').textContent = formatDate(dates[6]);
+
+    // Function to format the date as "YYYY-MM-DD"
+    function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
+    document.getElementById('availabilityForm').addEventListener('submit', saveAvailability);
+
+    function saveAvailability(event) {
+        event.preventDefault();
+
+        const availabilityData = {
+            username: document.getElementById('username').textContent,
+            monday: document.getElementById('monday').value,
+            tuesday: document.getElementById('tuesday').value,
+            wednesday: document.getElementById('wednesday').value,
+            thursday: document.getElementById('thursday').value,
+            friday: document.getElementById('friday').value,
+            saturday: document.getElementById('saturday').value,
+            sunday: document.getElementById('sunday').value
+        };
+
+        const jsonData = JSON.stringify(availabilityData);
+
+        fetch('sam/auth/saveavailability', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: jsonData
+        })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('monday').value = '';
+                    document.getElementById('tuesday').value = '';
+                    document.getElementById('wednesday').value = '';
+                    document.getElementById('thursday').value = '';
+                    document.getElementById('friday').value = '';
+                    document.getElementById('saturday').value = '';
+                    document.getElementById('sunday').value = '';
+                    alert('Availability saved successfully.');
+                    console.log('Availability saved successfully.');
+                } else {
+                    alert('Error: ' + response.statusText);
+                    console.error('Error:', response.statusText);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+    }
+</script>
+</body>
+</html>

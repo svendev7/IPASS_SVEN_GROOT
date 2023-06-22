@@ -32,6 +32,10 @@
 }
 
 .home-link1 {
+    top: 0;
+    right: 10px;
+    position: absolute;
+    text-decoration: none;
     display: contents;
 }
 

@@ -27,7 +27,8 @@
             margin-top: 0;
         }
 
-        input[type="text"], input[type="password"] {
+        input[type="text"],
+        input[type="password"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
@@ -85,7 +86,8 @@
         function register() {
             let requestData = {
                 "username": document.querySelector("#newUsername").value,
-                "password": document.querySelector("#newPassword").value
+                "password": document.querySelector("#newPassword").value,
+                "teamleiderPassword": document.querySelector("#teamleiderPassword").value
             };
 
             let fetchOptions = {
@@ -144,10 +146,12 @@
     <form id="registrationForm">
         <input type="text" name="newUsername" id="newUsername" placeholder="New Username"><br>
         <input type="password" name="newPassword" id="newPassword" placeholder="New Password"><br>
+        <input type="password" name="teamleiderPassword" id="teamleiderPassword" placeholder="Teamleider Password"><br>
         <input type="button" value="Register" id="registerButton" onclick="register()">
     </form>
     <p id="registerResult"></p>
 </div>
+
 <div class="container">
     <h1>Change Password</h1>
     <form id="changePasswordForm">

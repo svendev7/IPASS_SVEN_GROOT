@@ -7,9 +7,11 @@ public class User {
     private String username;
     private String password;
     private static List<User> allUsers = new ArrayList<>();
-    public User(String username, String password) {
+    private boolean teamleider;
+    public User(String username, String password, boolean teamleider) {
         this.username = username;
         this.password = password;
+        this.teamleider = teamleider;
         allUsers.add(this);
     }
 
@@ -20,7 +22,12 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    public boolean isTeamleider() {
+        return teamleider;
+    }
+    public void setTeamleider(boolean teamleider) {
+        this.teamleider = teamleider;
+    }
     public String getPassword() {
         return password;
     }
