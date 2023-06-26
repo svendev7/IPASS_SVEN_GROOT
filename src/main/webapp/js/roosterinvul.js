@@ -46,7 +46,7 @@ function handleFormSubmit(event) {
 }
 
 function updateAvailabilityTable(selectedUser) {
-    fetch('beschikbaarheden.json')
+    fetch('data/beschikbaarheden.json')
         .then(function(response) {
             return response.json();
         })
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateAvailabilityTable(selectedUser);
     });
 
-    fetch('beschikbaarheden.json')
+    fetch('data/beschikbaarheden.json')
         .then(function(response) {
             return response.json();
         })
