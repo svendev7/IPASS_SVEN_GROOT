@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rooster</title>
+    <link rel="stylesheet" type="text/css" href="css/rooster.css">
+</head>
+<body>
+<header class="header">
+    <div class="logo">
+        <img src="sources/logo.png" alt="Logo">
+    </div>
+    <h1>Welcome, <span id="username"></span>!</h1>
+</header>
+
+<div class="container">
+    <h1>Vraag hier vrij</h1>
+    <form id="vrijAanvraagForm">
+        <div class="availability-form">
+            <label for="startDate">Start Date:</label>
+            <input type="date" name="startDate" id="startDate" required>
+        </div>
+        <div class="availability-form">
+            <label for="endDate">End Date:</label>
+            <input type="date" name="endDate" id="endDate" required>
+        </div>
+        <input type="submit" value="Submit Vrij Aanvraag">
+    </form>
+    <h1>Stel je beschikbaarheid in</h1>
+    <form id="availabilityForm">
+        <div class="availability-form">
+            <label for="monday">Monday (<span id="mondayDate"></span>):</label>
+            <input type="text" name="monday" id="monday" placeholder="e.g., 12-15">
+        </div>
+        <div class="availability-form">
+            <label for="tuesday">Tuesday (<span id="tuesdayDate"></span>):</label>
+            <input type="text" name="tuesday" id="tuesday" placeholder="e.g., 17-24">
+        </div>
+        <div class="availability-form">
+            <label for="wednesday">Wednesday (<span id="wednesdayDate"></span>):</label>
+            <input type="text" name="wednesday" id="wednesday" placeholder="e.g., 09-18">
+        </div>
+        <div class="availability-form">
+            <label for="thursday">Thursday (<span id="thursdayDate"></span>):</label>
+            <input type="text" name="thursday" id="thursday" placeholder="e.g., 14-22">
+        </div>
+        <div class="availability-form">
+            <label for="friday">Friday (<span id="fridayDate"></span>):</label>
+            <input type="text" name="friday" id="friday" placeholder="e.g., 10-16">
+        </div>
+        <div class="availability-form">
+            <label for="saturday">Saturday (<span id="saturdayDate"></span>):</label>
+            <input type="text" name="saturday" id="saturday" placeholder="e.g., 09-17">
+        </div>
+        <div class="availability-form">
+            <label for="sunday">Sunday (<span id="sundayDate"></span>):</label>
+            <input type="text" name="sunday" id="sunday" placeholder="e.g., 13-20">
+        </div>
+        <input type="submit" value="Save Availability">
+    </form>
+
+    <div class="roster">
+        <h2>Rooster</h2>
+        <div class="roster-row">
+            <label for="rosterMonday">Monday: (<span id="mondayDate2"></span>):</label>
+            <span class="roster-value" id="rosterMonday"></span>
+            <span class="roster-date" id="rosterMondayDate"></span>
+        </div>
+        <div class="roster-row">
+            <label for="rosterTuesday">Tuesday: (<span id="tuesdayDate2"></span>):</label>
+            <span class="roster-value" id="rosterTuesday"></span>
+            <span class="roster-date" id="rosterTuesdayDate"></span>
+        </div>
+        <div class="roster-row">
+            <label for="rosterWednesday">Wednesday: (<span id="wednesdayDate2"></span>):</label>
+            <span class="roster-value" id="rosterWednesday"></span>
+            <span class="roster-date" id="rosterWednesdayDate"></span>
+        </div>
+        <div class="roster-row">
+            <label for="rosterThursday">Thursday: (<span id="thursdayDate2"></span>):</label>
+            <span class="roster-value" id="rosterThursday"></span>
+            <span class="roster-date" id="rosterThursdayDate"></span>
+        </div>
+        <div class="roster-row">
+            <label for="rosterFriday">Friday: (<span id="fridayDate2"></span>):</label>
+            <span class="roster-value" id="rosterFriday"></span>
+            <span class="roster-date" id="rosterFridayDate"></span>
+        </div>
+        <div class="roster-row">
+            <label for="rosterSaturday">Saturday: (<span id="saturdayDate2"></span>):</label>
+            <span class="roster-value" id="rosterSaturday"></span>
+            <span class="roster-date" id="rosterSaturdayDate"></span>
+        </div>
+        <div class="roster-row">
+            <label for="rosterSunday">Sunday: (<span id="sundayDate2"></span>):</label>
+            <span class="roster-value" id="rosterSunday"></span>
+            <span class="roster-date" id="rosterSundayDate"></span>
+        </div>
+    </div>
+    <script src="js/rooster.js"></script>
+</div>
+</body>
+</html>
