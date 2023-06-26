@@ -13,6 +13,7 @@ public class NieuwsResource {
     @GET
     @Path("/nieuws")
     @Produces(MediaType.APPLICATION_JSON)
+//    make nieuws object and return for html to use
     public Nieuws getNieuws() {
         Nieuws n1 = new Nieuws("12-6-2023", "tomaten zijn niet meer goed", "haal alle tomaten uit de winkel asap");
         return n1;

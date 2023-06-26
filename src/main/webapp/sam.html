@@ -1,66 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Web Page</title>
-  <link href="./home.css" rel="stylesheet" />
-  <style>
-    .hidden {
-      display: none;
-    }
-  </style>
+  <title>Home page</title>
+  <link rel="stylesheet" type="text/css" href="css/sam.css">
+
 </head>
 <body>
-<div>
-  <div class="home-container">
-    <h1 class="home-text">Albert Heijn Medewerker App</h1>
-    <div class="home-container1">
-      <a target="_blank" rel="noreferrer noopener" class="home-link">Uitloggen</a>
-      <a target="_blank" rel="noreferrer noopener" class="home-link1">Beschikbaarheid invullen</a>
-      <a target="_blank" rel="noreferrer noopener" class="home-link2">Rooster invullen</a>
-    </div>
-    <h1 class="home-text07">Belangrijk nieuws van vandaag:</h1>
-    <h1 class="home-text08">Rooster</h1>
-    <h1 class="home-text09">Vervanging regelen</h1>
-    <h1 class="home-text10">Vrij vragen</h1>
-    <img alt="image" src="sources/pngtree-vector-planning-icon-png-image_747134.jpg" class="home-image1" />
-    <img alt="image" src="sources/downloads.png" class="home-image2" />
-    <img alt="image" src="sources/png-clipart-red-free-tag-text-label-thumbnail.png" class="home-image3" />
+<header class="header">
+  <div class="logo">
+    <img src="sources/logo.png" alt="Logo">
   </div>
+  <div class="logout-button">
+    <a href="#" class="home-link">Uitloggen</a>
+  </div>
+</header>
+
+<div class="home-container">
+  <h1 class="home-text">Albert Heijn Medewerker App</h1>
+  <div class="home-container1">
+    <a href="#" class="home-link">
+      <h2>Rooster Inzien</h2>
+      <img src="sources/planning.png" alt="Rooster Inzien" class="home-link-image1">
+    </a>
+    <a href="#" class="home-link">
+      <h2>Rooster Invullen</h2>
+      <img src="sources/planninginvoer.png" alt="Rooster Invullen" class="home-link-image2">
+    </a>
+  </div>
+  <h1 class="home-text07">Belangrijk nieuws van vandaag:</h1>
+  <script src="js/sam.js"></script>
 </div>
-<script>
-  function logout() {
-    window.location.href = "index.html";
-  }
-
-  const logoutButton = document.querySelector(".home-link");
-  logoutButton.addEventListener("click", logout);
-
-  function account() {
-    window.location.href = "beschickbaarheid.html";
-  }
-
-  const accountButton = document.querySelector(".home-link1");
-  accountButton.addEventListener("click", account);
-  function rooster() {
-    window.location.href = "roosterinvul.html";
-  }
-
-  const roosterButton = document.querySelector(".home-link2");
-  roosterButton.addEventListener("click", rooster);
-  // Fetch the current user data from the server
-
-
-  // Fetch the nieuws data from the server
-  fetch('http://localhost:8080/sam/nieuws/nieuws')
-          .then(response => response.json())
-          .then(data => {
-            // Update the nieuws data in the HTML
-            const nieuwsElement = document.querySelector(".home-text07");
-            nieuwsElement.innerHTML += "<br>" + data.datum + "<br>" + data.informatie + "<br>" + data.acties;
-          })
-          .catch(error => {
-            console.error("Error fetching nieuws data:", error);
-          });
-</script>
 </body>
 </html>
