@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Path("/vrij")
 public class VrijAanvraagResource {
-    private final String VRIJAANVRAAG_FILE = "C:\\Users\\Groot\\IdeaProjects\\IPASS_SVEN_GROOT2\\src\\main\\webapp\\data\\vrijaanvraag.json";
+    private final String VRIJAANVRAAG_FILE = "/home/site/wwwroot/data/vrijaanvraag.json";
 
     @POST
     @Path("/vrijaanvraag")

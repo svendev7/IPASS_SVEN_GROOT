@@ -18,9 +18,8 @@ import java.util.*;
     @Path("/auth")
     public class AuthenticationResource {
         public static Key key = MacProvider.generateKey();
-        private static final String USERS_JSON_PATH = "C:\\Users\\Groot\\IdeaProjects\\IPASS_SVEN_GROOT2\\src\\main\\webapp\\data\\users.json";
-        private static final String CURRENT_USER_JSON_PATH = "C:\\Users\\Groot\\IdeaProjects\\IPASS_SVEN_GROOT2\\src\\main\\webapp\\data\\currentuser.json";
-        private static final String AVAILABILITY_JSON_PATH = "C:\\Users\\Groot\\IdeaProjects\\IPASS_SVEN_GROOT2\\src\\main\\webapp\\data\\beschikbaarheden.json";
+        private static final String USERS_JSON_PATH = "/home/site/wwwroot/data/users.json";
+        private static final String CURRENT_USER_JSON_PATH = "/home/site/wwwroot/data/currentuser.json";
 
         private void clearCurrentUserFile() {
             try {
@@ -30,53 +29,7 @@ import java.util.*;
                 e.printStackTrace();
             }
         }
-        @POST
-        @Path("/saveavailability")
-        @Consumes(MediaType.APPLICATION_JSON)
-//       sla ingevoerde beschikbaarheid op in daarvoor bestemde json file
-        public void saveAvailability(AvailabilityData availabilityData) {
-            try {
 
-                String jsonData = Files.readString(Paths.get(AVAILABILITY_JSON_PATH));
-
-                JSONArray jsonArray = new JSONArray(jsonData);
-                boolean usernameExists = false;
-//                als username al bestaat, vervang bestaande informatie met nieuwe informatie anders nieuwe informatie toevoegen
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    if (jsonObject.getString("username").equals(availabilityData.getUsername())) {
-
-                        jsonObject.put("monday", availabilityData.getMonday());
-                        jsonObject.put("tuesday", availabilityData.getTuesday());
-                        jsonObject.put("wednesday", availabilityData.getWednesday());
-                        jsonObject.put("thursday", availabilityData.getThursday());
-                        jsonObject.put("friday", availabilityData.getFriday());
-                        jsonObject.put("saturday", availabilityData.getSaturday());
-                        jsonObject.put("sunday", availabilityData.getSunday());
-                        usernameExists = true;
-                        break;
-                    }
-                }
-
-                if (!usernameExists) {
-
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("username", availabilityData.getUsername());
-                    jsonObject.put("monday", availabilityData.getMonday());
-                    jsonObject.put("tuesday", availabilityData.getTuesday());
-                    jsonObject.put("wednesday", availabilityData.getWednesday());
-                    jsonObject.put("thursday", availabilityData.getThursday());
-                    jsonObject.put("friday", availabilityData.getFriday());
-                    jsonObject.put("saturday", availabilityData.getSaturday());
-                    jsonObject.put("sunday", availabilityData.getSunday());
-                    jsonArray.put(jsonObject);
-                }
-
-                Files.write(Paths.get(AVAILABILITY_JSON_PATH), jsonArray.toString().getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         @POST
         @Path("/login")
         @Consumes(MediaType.APPLICATION_JSON)

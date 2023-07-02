@@ -116,7 +116,7 @@
 
     const jsonData = JSON.stringify(availabilityData);
 
-    fetch('sam/auth/saveavailability', {
+    fetch('sam/savebeschikbaarheid/saveavailability', {
     method: 'POST',
     headers: {
     'Content-Type': 'application/json'

@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 
 @Path("/rooster")
 public class RoosterInvulResource {
-    private final String ROOSTER_FILE = "C:\\Users\\Groot\\IdeaProjects\\IPASS_SVEN_GROOT2\\src\\main\\webapp\\data\\rooster.json";
+    private final String ROOSTER_FILE = "/home/site/wwwroot/data/rooster.json";
 
     @POST
     @Path("/roosterinvul")
