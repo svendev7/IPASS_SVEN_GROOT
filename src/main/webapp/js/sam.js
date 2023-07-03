@@ -25,7 +25,7 @@ const roosterButton = document.querySelector(".home-link-image2");
 roosterButton.addEventListener("click", roosterInvul);
 
 // Fetch the nieuws data from the server
-fetch('http://localhost:8080/sam/nieuws/nieuws')
+fetch('sam/nieuws/nieuws')
     .then(response => response.json())
     .then(data => {
         // Update the nieuws data in the HTML

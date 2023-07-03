@@ -4,7 +4,6 @@ public class Medewerker {
         private String naam;
         private String beschikbaarheid;
         private String kwalificaties;
-        private User user;
         public Medewerker(String naam, String beschikbaarheid, String kwalificaties) {
             this.naam = naam;
             this.beschikbaarheid = beschikbaarheid;
