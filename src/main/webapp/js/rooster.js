@@ -1,61 +1,71 @@
 
-    function getCurrentUser() {
-    return fetch('data/currentuser.json')
-    .then(response => response.json())
-    .then(data => {
-    if (data && data.length > 0) {
-    const username = data[0].username;
-    return Promise.resolve({ username: username });
-} else {
-    return Promise.reject('User data not found.');
-}
-})
-    .catch(error => {
-    console.error('Error:', error);
-});
+function getCurrentUser() {
+    return fetch('sam/auth/currentuser')
+        .then(response => response.json())
+        .then(data => {
+            if (data && data.length > 0) {
+                const username = data[0].username;
+                return Promise.resolve({ username: username });
+            } else {
+                return Promise.reject('User data not found.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
 
     getCurrentUser()
-    .then(data => {
-    if (data && data.username) {
-    const username = data.username;
-    const usernameElement = document.getElementById('username');
-    usernameElement.textContent = username;
-    updateRosterData(username);
-}
-})
-    .catch(error => {
-    console.error('Error:', error);
-});
+        .then(data => {
+            if (data && data.username) {
+                const username = data.username;
+                const usernameElement = document.getElementById('username');
+                usernameElement.textContent = username;
+                updateRosterData(username);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 
-    function getRosterData(selectedUser) {
-    return fetch('data/rooster.json')
-    .then(response => response.json())
-    .then(data => {
-    const userData = data.filter(item => item.username === selectedUser);
-    if (userData.length > 0) {
-    const roosterData = JSON.parse(userData[0].rooster);
-    return Promise.resolve(roosterData);
-} else {
-    return Promise.reject('Rooster data not found for the selected user.');
-}
-})
-    .catch(error => {
-    console.error('Error:', error);
-    throw error; // Rethrow the error to be caught by the outer catch block
-});
+function getRosterData(selectedUser) {
+    return fetch('sam/rooster/roosterdata')
+        .then(response => response.json())
+        .then(data => {
+            const roosterData = data.find(item => item.username === selectedUser);
+            if (roosterData) {
+                const parsedRoosterData = JSON.parse(roosterData.rooster);
+                return Promise.resolve(parsedRoosterData);
+            } else {
+                return Promise.reject('Rooster data not found for the selected user.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            throw error;
+        });
 }
 
-    function updateRosterData(selectedUser) {
+function updateRosterData(selectedUser) {
     getRosterData(selectedUser)
         .then(roosterData => {
-            document.getElementById('rosterMonday').textContent = roosterData.Monday || '';
-            document.getElementById('rosterTuesday').textContent = roosterData.Tuesday || '';
-            document.getElementById('rosterWednesday').textContent = roosterData.Wednesday || '';
-            document.getElementById('rosterThursday').textContent = roosterData.Thursday || '';
-            document.getElementById('rosterFriday').textContent = roosterData.Friday || '';
-            document.getElementById('rosterSaturday').textContent = roosterData.Saturday || '';
-            document.getElementById('rosterSunday').textContent = roosterData.Sunday || '';
+            const {
+                Monday,
+                Tuesday,
+                Wednesday,
+                Thursday,
+                Friday,
+                Saturday,
+                Sunday
+            } = roosterData;
+
+            document.getElementById('rosterMonday').textContent = Monday || '';
+            document.getElementById('rosterTuesday').textContent = Tuesday || '';
+            document.getElementById('rosterWednesday').textContent = Wednesday || '';
+            document.getElementById('rosterThursday').textContent = Thursday || '';
+            document.getElementById('rosterFriday').textContent = Friday || '';
+            document.getElementById('rosterSaturday').textContent = Saturday || '';
+            document.getElementById('rosterSunday').textContent = Sunday || '';
         })
         .catch(error => {
             console.error('Error:', error);

@@ -7,8 +7,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.File;
@@ -20,13 +22,24 @@ import java.util.Map;
 
 @Path("/vrij")
 public class VrijAanvraagResource {
-    private final String VRIJAANVRAAG_FILE = "/home/site/wwwroot/data/vrijaanvraag.json";
+    private static final String VRIJAANVRAAG_FILE = "/home/site/wwwroot/data/vrijaanvraag.json";
+    @GET
+    @Path("/vrijaanvraagdata")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getVrijaanvraagData() {
+        try {
+            String jsonData = Files.readString(Paths.get(VRIJAANVRAAG_FILE));
+            return jsonData;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @POST
     @Path("/vrijaanvraag")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response saveVrijaanvraag(VrijAanvraag v) {
-//        method to write vrijaanvraag to json file
         if (v != null && v.getvrijaanvraag() != null) {
             String selectedUser = v.getUsername();
             saveVrijaanvraagToJson(v, selectedUser);
@@ -37,7 +50,6 @@ public class VrijAanvraagResource {
     }
 
     private void saveVrijaanvraagToJson(VrijAanvraag v, String selectedUser) {
-//        method to write new contents into json file
         try {
             String jsonContent = Files.readString(Paths.get(VRIJAANVRAAG_FILE));
             JSONArray jsonArray = new JSONArray(jsonContent);
@@ -50,7 +62,6 @@ public class VrijAanvraagResource {
                     return;
                 }
             }
-
 
             JSONObject newVrijAanvraagJson = new JSONObject();
             newVrijAanvraagJson.put("username", selectedUser);

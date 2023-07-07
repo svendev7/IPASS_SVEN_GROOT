@@ -4,6 +4,7 @@ function logout() {
 
 const logoutButton = document.querySelector(".home-link");
 logoutButton.addEventListener("click", logout);
+
 function handleFormSubmit(event) {
     event.preventDefault();
 
@@ -45,10 +46,16 @@ function handleFormSubmit(event) {
         });
 }
 
+var dropdown = document.getElementById('users-dropdown');
+
 function updateAvailabilityTable(selectedUser) {
-    fetch('data/beschikbaarheden.json')
+    fetch('sam/savebeschikbaarheid/availabilitydata')
         .then(function(response) {
-            return response.json();
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Error fetching availability data');
+            }
         })
         .then(function(data) {
             var availabilityData = data.find(function(item) {
@@ -59,29 +66,35 @@ function updateAvailabilityTable(selectedUser) {
             tableBody.innerHTML = '';
 
             var beschikbaarheidRow = document.createElement('tr');
-            var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            var days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
             days.forEach(function(day) {
                 var beschikbaarheidCell = document.createElement('td');
-                beschikbaarheidCell.textContent = availabilityData[day.toLowerCase()] || '';
+                beschikbaarheidCell.textContent = availabilityData[day] || '';
                 beschikbaarheidRow.appendChild(beschikbaarheidCell);
             });
             tableBody.appendChild(beschikbaarheidRow);
         })
         .catch(function(error) {
-            console.error('Error fetching users data:', error);
+            console.error('Error fetching availability data:', error);
         });
-}
 
-function updateVrijaanvraagTable() {
-    fetch('data/vrijaanvraag.json')
+    fetch('sam/vrij/vrijaanvraagdata')
         .then(function(response) {
-            return response.json();
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Error fetching vrij aanvraag data');
+            }
         })
         .then(function(data) {
+            var vrijAanvraagData = data.filter(function(item) {
+                return item.username === selectedUser;
+            });
+
             var tableBody = document.querySelector('#vrijaanvraag-table tbody');
             tableBody.innerHTML = '';
 
-            data.forEach(function(item) {
+            vrijAanvraagData.forEach(function(item) {
                 var vrijaanvraagRow = document.createElement('tr');
                 var vrijaanvraagCell = document.createElement('td');
                 var usernameCell = document.createElement('td');
@@ -95,22 +108,25 @@ function updateVrijaanvraagTable() {
             });
         })
         .catch(function(error) {
-            console.error('Error fetching vrijaanvraag data:', error);
+            console.error('Error fetching vrij aanvraag data:', error);
         });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    var dropdown = document.getElementById('users-dropdown');
-
     dropdown.addEventListener('change', function() {
         var selectedUser = this.value;
-        document.getElementById('availability-header').textContent = 'Beschikbaarheid van geselecteerde gebruiker: ' + selectedUser;
+        document.getElementById('availability-header').textContent =
+            'Beschikbaarheid van geselecteerde gebruiker: ' + selectedUser;
         updateAvailabilityTable(selectedUser);
     });
 
-    fetch('data/beschikbaarheden.json')
+    fetch('sam/savebeschikbaarheid/availabilitydata')
         .then(function(response) {
-            return response.json();
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Error fetching users data');
+            }
         })
         .then(function(data) {
             data.forEach(function(user) {
@@ -121,14 +137,15 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             var selectedUser = dropdown.value;
-            document.getElementById('availability-header').textContent = 'Beschikbaarheid van geselecteerde gebruiker: ' + selectedUser;
+            document.getElementById('availability-header').textContent =
+                'Beschikbaarheid van geselecteerde gebruiker: ' + selectedUser;
             updateAvailabilityTable(selectedUser);
         })
         .catch(function(error) {
             console.error('Error fetching users data:', error);
         });
 
-    updateVrijaanvraagTable();
+    updateAvailabilityTable(dropdown.value);
 });
 
 var roosterForm = document.getElementById('rooster-form');

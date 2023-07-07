@@ -21,6 +21,20 @@ import java.util.*;
         private static final String USERS_JSON_PATH = "/home/site/wwwroot/data/users.json";
         private static final String CURRENT_USER_JSON_PATH = "/home/site/wwwroot/data/currentuser.json";
 
+        @GET
+        @Path("/currentuser")
+        @Produces(MediaType.APPLICATION_JSON)
+        public String getCurrentUser() {
+            try {
+                // Read the content of the currentuser.json file
+                byte[] jsonData = Files.readAllBytes(Paths.get(CURRENT_USER_JSON_PATH));
+                return new String(jsonData);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
         private void clearCurrentUserFile() {
             try {
 //                empty the CURRENTUSER.json file
