@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>nl.hu.sam.IPASS</groupId>
-    <artifactId>IPASS</artifactId>
+    <groupId>nl.hu.bep</groupId>
+    <artifactId>fishy-system</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
-    <name>IPASS</name>
+    <name>FishySystem</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -15,12 +15,30 @@
     </properties>
 
     <dependencies>
+
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>2.15.0</version>
         </dependency>
+        <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-api</artifactId>
+        <version>0.11.2</version>
+    </dependency>
+    <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-impl</artifactId>
+        <version>0.11.2</version>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt-jackson</artifactId>
+        <version>0.11.2</version>
+        <scope>runtime</scope>
+    </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
@@ -81,17 +99,17 @@
             <artifactId>jersey-hk2</artifactId>
             <version>2.35</version>
         </dependency>
-        <dependency><!-- NIET JACKSON1 maar jackson -->
+        <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>2.35</version>
         </dependency>
 
-            <dependency>
-              <groupId>io.jsonwebtoken</groupId>
-              <artifactId>jjwt</artifactId>
-              <version>0.9.1</version>
-            </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -137,8 +155,8 @@
                 <version>2.10.0</version>
                 <configuration>
                     <schemaVersion>v2</schemaVersion>
-                    <resourceGroup>IPASS-1687800138310-rg</resourceGroup>
-                    <appName>IPASS-1687800138310</appName>
+                    <resourceGroup>fishy-system-1692639280281-rg</resourceGroup>
+                    <appName>fishy-system-1692639280281</appName>
                     <pricingTier>F1</pricingTier>
                     <region>centralus</region>
                     <runtime>
